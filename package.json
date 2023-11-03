@@ -18,8 +18,7 @@
     "@monaco-editor/react": "^4.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-simple-typewriter": "^5.0.1",
-    "react-split-pane": "^0.1.92"
+    "react-simple-typewriter": "^5.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
