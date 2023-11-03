@@ -1,11 +1,74 @@
-import SplitPane from "react-split-pane";
+import { Editor } from "@monaco-editor/react";
+import Navbar from "./Components/Navbar";
+import { useEffect, useState } from "react";
+import CodePreview from "./Components/CodePreview";
+
 function App() {
+  let [html, setHtml] = useState("");
+  let [css, setCss] = useState("");
+  let [js, setJs] = useState("");
+  let [srcDoc, setSrcDoc] = useState("");
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setSrcDoc(`
+      <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Preview</title>
+      </head>
+      <body>
+        <div id="root">${html}</div>
+        <style>${css}</style>
+        <script>${js}</script>
+      </body>
+    </html>
+      `);
+    }, 500);
+    return () => clearTimeout(timeOut);
+  }, [html, css, js]);
+
   return (
-    <div className="h-full">
-      <SplitPane split="horizontal" defaultSize={"60%"}>
-        <div className="bg-blue-100 h-full w-full">Pane 1</div>
-        <div className="bg-red-200 h-full w-full">Pane 2</div>
-      </SplitPane>
+    <div className="grid grid-cols-8 grid-rows-10 h-screen w-screen">
+      <div className="col-span-8 row-span-1">
+        <Navbar />
+      </div>
+      <div className="col-span-8 row-span-5 row-start-2">
+        <div className="grid grid-cols-3 h-1/2">
+          <div>
+            <Editor
+              height="100%"
+              language="html"
+              value={html}
+              onChange={setHtml}
+            />
+          </div>
+
+          <div>
+            <Editor
+              height="100%"
+              language="css"
+              value={css}
+              onChange={setCss}
+            />
+          </div>
+
+          <div>
+            <Editor
+              height="100%"
+              defaultLanguage="javascript"
+              value={js}
+              onChange={setJs}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="col-span-8 row-span-4 row-start-7">
+        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+        <CodePreview srcDoc={srcDoc} />
+      </div>
     </div>
   );
 }
