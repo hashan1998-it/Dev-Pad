@@ -2,6 +2,7 @@ import { Editor } from "@monaco-editor/react";
 import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import CodePreview from "./Components/CodePreview";
+import TabBar from "./Components/TabBar";
 
 function App() {
   let [html, setHtml] = useState("");
@@ -34,9 +35,10 @@ function App() {
     <div className="grid grid-cols-8 grid-rows-10 h-screen w-screen">
       <div className="col-span-8 row-span-1">
         <Navbar />
+        <TabBar />
       </div>
       <div className="col-span-8 row-span-5 row-start-2">
-        <div className="grid grid-cols-3 h-1/2">
+        <div className="grid grid-cols-3 sm:h-1/2">
           <div>
             <Editor
               height="100%"
@@ -52,6 +54,7 @@ function App() {
               language="css"
               value={css}
               onChange={setCss}
+              className="hidden sm:block"
             />
           </div>
 
@@ -61,6 +64,7 @@ function App() {
               defaultLanguage="javascript"
               value={js}
               onChange={setJs}
+              className="hidden sm:block"
             />
           </div>
         </div>
