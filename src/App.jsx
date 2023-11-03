@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import CodePreview from "./Components/CodePreview";
 import TabBar from "./Components/TabBar";
+import NoMobileVersion from "./Components/NoMobileVersion";
 
 function App() {
   let [html, setHtml] = useState("");
@@ -32,46 +33,45 @@ function App() {
   }, [html, css, js]);
 
   return (
-    <div className="grid grid-cols-8 grid-rows-10 h-screen w-screen">
-      <div className="col-span-8 row-span-1">
-        <Navbar />
-        <TabBar />
-      </div>
-      <div className="col-span-8 row-span-5 row-start-2">
-        <div className="grid grid-cols-3 sm:h-1/2">
-          <div>
-            <Editor
-              height="100%"
-              language="html"
-              value={html}
-              onChange={setHtml}
-            />
-          </div>
-
-          <div>
-            <Editor
-              height="100%"
-              language="css"
-              value={css}
-              onChange={setCss}
-              className="hidden sm:block"
-            />
-          </div>
-
-          <div>
-            <Editor
-              height="100%"
-              defaultLanguage="javascript"
-              value={js}
-              onChange={setJs}
-              className="hidden sm:block"
-            />
+    <div>
+      <NoMobileVersion />
+      <div className="hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden">
+        <div className="col-span-8 row-span-1">
+          <Navbar />
+          <TabBar />
+        </div>
+        <div className="col-span-8 row-span-5 row-start-2">
+          <div className="grid grid-cols-3 sm:h-1/2">
+            <div>
+              <Editor
+                height="100%"
+                language="html"
+                value={html}
+                onChange={setHtml}
+              />
+            </div>
+            <div>
+              <Editor
+                height="100%"
+                language="css"
+                value={css}
+                onChange={setCss}
+              />
+            </div>
+            <div>
+              <Editor
+                height="100%"
+                defaultLanguage="javascript"
+                value={js}
+                onChange={setJs}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="col-span-8 row-span-4 row-start-7">
-        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-        <CodePreview srcDoc={srcDoc} />
+        <div className="col-span-8 row-span-4 row-start-7">
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <CodePreview srcDoc={srcDoc} />
+        </div>
       </div>
     </div>
   );
