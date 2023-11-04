@@ -36,13 +36,16 @@ function App() {
     <div>
       <NoMobileVersion />
       <div className="hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden">
-        <div className="col-span-8 row-span-1">
+      
+        <div className="col-span-8">
           <Navbar />
           <TabBar />
         </div>
-        <div className="col-span-8 row-span-5 row-start-2">
-          <div className="grid grid-cols-3 sm:h-1/2">
-            <div>
+
+
+        <div className="col-span-8 row-span-4 row-start-2 h-full">
+          <div className="grid grid-cols-3 h-5/6">
+            <div >
               <Editor
                 height="100%"
                 language="html"
@@ -51,7 +54,7 @@ function App() {
               />
             </div>
             <div>
-              <Editor
+              <Editor 
                 height="100%"
                 language="css"
                 value={css}
@@ -68,7 +71,9 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="col-span-8 row-span-4 row-start-7">
+
+
+        <div className="col-span-8 row-span-5 row-start-6 min-w-0 min-h-0">
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
           <CodePreview srcDoc={srcDoc} />
         </div>

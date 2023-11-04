@@ -1,4 +1,5 @@
 import React from "react";
+import DarkModeToggle from "./DarkModeToggle";
 
 
 function Navbar() {
@@ -44,14 +45,7 @@ function Navbar() {
               </a>
               <div className="w-full h-0.5 bg-transparent group-hover:bg-purple-500 transition-al absolute bottom-0" />
             </li>
-            <li>
-              <a
-                href="#"
-                className="bg-purple-500 px-4 py-1 rounded-xl text-white hover:bg-purple-400 active:bg-purple-600 focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none"
-              >
-                Contact
-              </a>
-            </li>
+            <DarkModeToggle/>
           </ul>
           <button className="flex md:hidden hover:bg-gray-100 p-2 rounded-full transition-all focus:ring focus:ring-purple-500 focus:ring-opacity-25 active:bg-gray-200 outline-none">
             <svg
