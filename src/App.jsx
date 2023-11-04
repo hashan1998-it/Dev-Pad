@@ -13,6 +13,7 @@ function App() {
   let [css, setCss] = useState("");
   let [js, setJs] = useState("");
   let [srcDoc, setSrcDoc] = useState("");
+  let [loading,setLoading] = useState(true);
 
   const { darkMode } = useContext(ThemeContext);
   const { hidden } = useContext(DrawerContext);
@@ -49,7 +50,7 @@ function App() {
       `);
     }, 500);
     return () => clearTimeout(timeOut);
-  }, [html, css, js,styleMethod]);
+  }, [html, css, js, styleMethod]);
 
   return (
     <div>
@@ -86,6 +87,7 @@ function App() {
                 value={html}
                 onChange={setHtml}
                 theme={darkMode ? "vs-dark" : "vs-light"}
+                loading={false}
               />
             </div>
             <div>
@@ -94,6 +96,7 @@ function App() {
                 language="css"
                 value={css}
                 onChange={setCss}
+                loading={false}
               />
             </div>
             <div>
@@ -102,6 +105,7 @@ function App() {
                 defaultLanguage="javascript"
                 value={js}
                 onChange={setJs}
+                loading={false}
               />
             </div>
           </div>
