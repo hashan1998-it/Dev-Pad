@@ -12,12 +12,12 @@ function Drawer() {
     <div>
       <div>
         <div className={`fixed h-full w-full z-50 left-0 top-0`}>
-          <div className="fixed h-full w-full left-0 top-0 bg-black bg-opacity-50 z[-1]"></div>
+          <div className="fixed h-full w-full left-0 top-0 bg-black bg-opacity-50 z[-1] transition-all"></div>
 
           <div
             className={`fixed h-full w-1/3 sm:w-72 right-0 top-0 shadow-lg p-4 ${
               darkMode ? "bg-[#1E1E1E]" : "bg-white"
-            }`}
+            } transition-all` }
           >
             <button
               type="button"

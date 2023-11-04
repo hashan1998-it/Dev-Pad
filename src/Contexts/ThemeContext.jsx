@@ -1,9 +1,10 @@
 import { createContext,useState } from "react";
+import useLocalStorage from "../Hooks/useLocalStorage";
 
 export const ThemeContext = createContext();
 
 function ThemeContextProvider(props) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode",false);
 
   const handleDarkModeToggle = () => {
     setDarkMode(!darkMode);

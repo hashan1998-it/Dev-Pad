@@ -1,10 +1,11 @@
 import { createContext } from "react";
 import { useState } from "react";
+import useLocalStorage from "../Hooks/useLocalStorage";
 
 export const StyleMethodContext = createContext();
 
 export default function StyleMethodContextProvider(props) {
-  const [styleMethod, setStyleMethod] = useState("css");
+  const [styleMethod, setStyleMethod] = useLocalStorage("styleMethod","css");
   const handleStyleMethod = (e) => {
     setStyleMethod(e.target.value);
   };

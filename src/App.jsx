@@ -8,19 +8,19 @@ import Drawer from "./Components/Drawer";
 import { DrawerContext } from "./Contexts/DrawerContext";
 import { StyleMethodContext } from "./Contexts/StyleMethodContext";
 import { FullScreenContext } from "./Contexts/FullScreenContext";
-
+import useLocalStorage from "./Hooks/useLocalStorage";
 
 function App() {
-  let [html, setHtml] = useState("");
-  let [css, setCss] = useState("");
-  let [js, setJs] = useState("");
-  let [srcDoc, setSrcDoc] = useState("");
-  let content = null;
-
   const { darkMode } = useContext(ThemeContext);
   const { hidden } = useContext(DrawerContext);
   const { styleMethod } = useContext(StyleMethodContext);
   const { isFullScreen } = useContext(FullScreenContext);
+
+  let [html, setHtml] =  useLocalStorage("html", "");
+  let [css, setCss] = useLocalStorage("css","");
+  let [js, setJs] = useLocalStorage("js","");
+  let [srcDoc, setSrcDoc] = useState("");
+  let content = null;
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -53,7 +53,7 @@ function App() {
       `);
     }, 500);
     return () => clearTimeout(timeOut);
-  }, [html, css, js, styleMethod,darkMode]);
+  }, [html, css, js, styleMethod, darkMode]);
 
   if (!isFullScreen) {
     content = (
@@ -110,29 +110,35 @@ function App() {
   }
 
   return (
-
-      <div>
-        <NoMobileVersion />
+    <div>
+      <NoMobileVersion />
+      <div
+        className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}
+      >
+        <div className="col-span-8 row-span-1 h-full">
+          {hidden ? "" : <Drawer />}
+          <Navbar />
+        </div>
+        {content}
         <div
-          className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}
+          className={`col-span-8  min-w-0 min-h-0 ${
+            isFullScreen
+              ? "row-span-6 row-start-2 h-screen"
+              : "row-span-5 row-start-6"
+          }`}
         >
-          <div className="col-span-8 row-span-1 h-full">
-            {hidden ? "" : <Drawer />}
-            <Navbar />
-          </div>
-          {content}
-          <div
-            className={`col-span-8  min-w-0 min-h-0 ${
-              isFullScreen ? "row-span-6 row-start-2 h-screen" : "row-span-5 row-start-6"
+          <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <h1
+            className={`text-center bg-slate-200 font-medium ${
+              isFullScreen ? "" : "hidden"
             }`}
           >
-            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
-            <h1 className={`text-center bg-slate-200 font-medium ${isFullScreen ? "" : "hidden"}`}>Preview</h1>
-            <CodePreview srcDoc={srcDoc} />
-          </div>
+            Preview
+          </h1>
+          <CodePreview srcDoc={srcDoc} />
         </div>
       </div>
- 
+    </div>
   );
 }
 
