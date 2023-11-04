@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { useState } from "react";
 import useLocalStorage from "../Hooks/useLocalStorage";
 
 export const StyleMethodContext = createContext();
