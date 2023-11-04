@@ -7,17 +7,20 @@ import { ThemeContext } from "./Contexts/ThemeContext";
 import Drawer from "./Components/Drawer";
 import { DrawerContext } from "./Contexts/DrawerContext";
 import { StyleMethodContext } from "./Contexts/StyleMethodContext";
+import { FullScreenContext } from "./Contexts/FullScreenContext";
+
 
 function App() {
   let [html, setHtml] = useState("");
   let [css, setCss] = useState("");
   let [js, setJs] = useState("");
   let [srcDoc, setSrcDoc] = useState("");
-  let [loading,setLoading] = useState(true);
+  let content = null;
 
   const { darkMode } = useContext(ThemeContext);
   const { hidden } = useContext(DrawerContext);
   const { styleMethod } = useContext(StyleMethodContext);
+  const { isFullScreen } = useContext(FullScreenContext);
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -52,71 +55,82 @@ function App() {
     return () => clearTimeout(timeOut);
   }, [html, css, js, styleMethod]);
 
-  return (
-    <div>
-      <NoMobileVersion />
+  if (!isFullScreen) {
+    content = (
       <div
-        className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}
+        className={`col-span-8 row-span-4 row-start-2 h-full ${
+          darkMode ? `bg-[#1E1E1E]` : `bg-white`
+        }  `}
       >
-        <div className="col-span-8 h-full">
-          {hidden ? "" : <Drawer />}
-          <Navbar />
-        </div>
-
-        <div
-          className={`col-span-8 row-span-4 row-start-2 h-full ${
-            darkMode ? `bg-[#1E1E1E]` : `bg-white`
-          }`}
-        >
-          <div className="grid grid-cols-3 py-2 mb-5 gap-10">
-            <div className="col-span-1 text-center bg-slate-200 ml-5 font-medium">
-              HTML
-            </div>
-            <div className="col-span-1 text-center bg-slate-200 font-medium">
-              CSS
-            </div>
-            <div className="col-span-1 text-center bg-slate-200 mr-5 font-medium">
-              JS
-            </div>
+        <div className="grid grid-cols-3 py-2 mb-5 gap-10">
+          <div className="col-span-1 text-center bg-slate-200 ml-5 font-medium">
+            HTML
           </div>
-          <div className="grid grid-cols-3 h-4/6">
-            <div>
-              <Editor
-                height="100%"
-                language="html"
-                value={html}
-                onChange={setHtml}
-                theme={darkMode ? "vs-dark" : "vs-light"}
-                loading={false}
-              />
-            </div>
-            <div>
-              <Editor
-                height="100%"
-                language="css"
-                value={css}
-                onChange={setCss}
-                loading={false}
-              />
-            </div>
-            <div>
-              <Editor
-                height="100%"
-                defaultLanguage="javascript"
-                value={js}
-                onChange={setJs}
-                loading={false}
-              />
-            </div>
+          <div className="col-span-1 text-center bg-slate-200 font-medium">
+            CSS
+          </div>
+          <div className="col-span-1 text-center bg-slate-200 mr-5 font-medium">
+            JS
           </div>
         </div>
-
-        <div className="col-span-8 row-span-5 row-start-6 min-w-0 min-h-0">
-          <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          <CodePreview srcDoc={srcDoc} />
+        <div className="grid grid-cols-3 h-4/6">
+          <div>
+            <Editor
+              height="100%"
+              language="html"
+              value={html}
+              onChange={setHtml}
+              theme={darkMode ? "vs-dark" : "vs-light"}
+              loading={false}
+            />
+          </div>
+          <div>
+            <Editor
+              height="100%"
+              language="css"
+              value={css}
+              onChange={setCss}
+              loading={false}
+            />
+          </div>
+          <div>
+            <Editor
+              height="100%"
+              defaultLanguage="javascript"
+              value={js}
+              onChange={setJs}
+              loading={false}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+
+      <div>
+        <NoMobileVersion />
+        <div
+          className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}
+        >
+          <div className="col-span-8 row-span-1 h-full">
+            {hidden ? "" : <Drawer />}
+            <Navbar />
+          </div>
+          ${content}
+          <div
+            className={`col-span-8  min-w-0 min-h-0 ${
+              isFullScreen ? "row-span-6 row-start-2 h-screen" : "row-span-5 row-start-6"
+            }`}
+          >
+            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
+            <h1 className={`text-center bg-slate-200 font-medium ${isFullScreen ? "" : "hidden"}`}>Preview</h1>
+            <CodePreview srcDoc={srcDoc} />
+          </div>
+        </div>
+      </div>
+ 
   );
 }
 
