@@ -1,18 +1,19 @@
 import React from "react";
 import DarkModeToggle from "./DarkModeToggle";
-
+import { ThemeContext } from "../Contexts/ThemeContext";
+import { useContext } from "react";
 
 function Navbar() {
+  const { darkMode } = useContext(ThemeContext);
   return (
-    <nav className="py-6 w-100">
+    <nav className={`py-6 w-100 ${darkMode ? `bg-[#1E1E1E]` : ""} h-full`}>
       <div className="flex items-center justify-between mx-auto xl:max-w-7xl lg:max-w-5xl md:max-w-3xl md:px-2 px-4">
         <section className="flex items-center text-gray-900 space-x-2">
-         
           <a
             href="#"
-            className="font-bold text-xl focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg"
+            className={`font-bold text-xl focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg ${darkMode ? `text-white` : ""}`}
           >
-           Dev.Pad
+            Dev.Pad
           </a>
         </section>
         <section>
@@ -20,32 +21,14 @@ function Navbar() {
             <li className="relative group">
               <a
                 href="#"
-                className="group focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg"
+                className={`group focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg ${darkMode ? `text-white` : ""}`}
               >
                 {" "}
                 Home{" "}
               </a>
               <div className="w-full h-0.5 bg-transparent group-hover:bg-purple-500 transition-al absolute bottom-0" />
             </li>
-            <li className="relative group">
-              <a
-                href="#"
-                className="focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg"
-              >
-                Services
-              </a>
-              <div className="w-full h-0.5 bg-transparent group-hover:bg-purple-500 transition-al absolute bottom-0" />
-            </li>
-            <li className="relative group">
-              <a
-                href="#"
-                className="focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg"
-              >
-                About
-              </a>
-              <div className="w-full h-0.5 bg-transparent group-hover:bg-purple-500 transition-al absolute bottom-0" />
-            </li>
-            <DarkModeToggle/>
+            <DarkModeToggle />
           </ul>
           <button className="flex md:hidden hover:bg-gray-100 p-2 rounded-full transition-all focus:ring focus:ring-purple-500 focus:ring-opacity-25 active:bg-gray-200 outline-none">
             <svg
@@ -63,6 +46,7 @@ function Navbar() {
           </button>
         </section>
       </div>
+     
     </nav>
   );
 }

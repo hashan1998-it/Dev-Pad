@@ -1,15 +1,21 @@
 import { Editor } from "@monaco-editor/react";
 import Navbar from "./Components/Navbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CodePreview from "./Components/CodePreview";
 import TabBar from "./Components/TabBar";
 import NoMobileVersion from "./Components/NoMobileVersion";
+import { ThemeContext } from "./Contexts/ThemeContext";
 
 function App() {
   let [html, setHtml] = useState("");
   let [css, setCss] = useState("");
   let [js, setJs] = useState("");
   let [srcDoc, setSrcDoc] = useState("");
+
+  const {darkMode} = useContext(ThemeContext);
+
+
+
 
   useEffect(() => {
     const timeOut = setTimeout(() => {
@@ -35,22 +41,28 @@ function App() {
   return (
     <div>
       <NoMobileVersion />
-      <div className="hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden">
-      
-        <div className="col-span-8">
+      <div className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}>
+        <div className="col-span-8 h-full">
           <Navbar />
-          <TabBar />
         </div>
 
 
-        <div className="col-span-8 row-span-4 row-start-2 h-full">
-          <div className="grid grid-cols-3 h-5/6">
+        <div className={`col-span-8 row-span-4 row-start-2 h-full ${darkMode ? `bg-[#1E1E1E]`:`bg-white` }`}>
+        <div className="grid grid-cols-3 py-2 mb-5 gap-10">
+        <div className="col-span-1 text-center bg-slate-200 ml-5 font-medium">HTML</div>
+        <div className="col-span-1 text-center bg-slate-200 font-medium">CSS</div>
+        <div className="col-span-1 text-center bg-slate-200 mr-5 font-medium">JS</div>
+      </div>
+          <div className="grid grid-cols-3 h-4/6">
+          
             <div >
               <Editor
                 height="100%"
                 language="html"
                 value={html}
                 onChange={setHtml}
+                theme={darkMode ? "vs-dark" : "vs-light"}
+          
               />
             </div>
             <div>
@@ -59,6 +71,7 @@ function App() {
                 language="css"
                 value={css}
                 onChange={setCss}
+           
               />
             </div>
             <div>
@@ -67,6 +80,7 @@ function App() {
                 defaultLanguage="javascript"
                 value={js}
                 onChange={setJs}
+         
               />
             </div>
           </div>
@@ -74,7 +88,7 @@ function App() {
 
 
         <div className="col-span-8 row-span-5 row-start-6 min-w-0 min-h-0">
-          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
           <CodePreview srcDoc={srcDoc} />
         </div>
       </div>
