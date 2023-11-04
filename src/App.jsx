@@ -53,7 +53,7 @@ function App() {
       `);
     }, 500);
     return () => clearTimeout(timeOut);
-  }, [html, css, js, styleMethod]);
+  }, [html, css, js, styleMethod,darkMode]);
 
   if (!isFullScreen) {
     content = (
@@ -81,7 +81,7 @@ function App() {
               value={html}
               onChange={setHtml}
               theme={darkMode ? "vs-dark" : "vs-light"}
-              loading={false}
+              loading={true}
             />
           </div>
           <div>
@@ -90,7 +90,8 @@ function App() {
               language="css"
               value={css}
               onChange={setCss}
-              loading={false}
+              loading={true}
+              theme={darkMode ? "vs-dark" : "vs-light"}
             />
           </div>
           <div>
@@ -99,7 +100,8 @@ function App() {
               defaultLanguage="javascript"
               value={js}
               onChange={setJs}
-              loading={false}
+              loading={true}
+              theme={darkMode ? "vs-dark" : "vs-light"}
             />
           </div>
         </div>
@@ -118,7 +120,7 @@ function App() {
             {hidden ? "" : <Drawer />}
             <Navbar />
           </div>
-          ${content}
+          {content}
           <div
             className={`col-span-8  min-w-0 min-h-0 ${
               isFullScreen ? "row-span-6 row-start-2 h-screen" : "row-span-5 row-start-6"

@@ -12,7 +12,6 @@ function Navbar() {
 
   const fullScreenSvg = (
     <svg
-      fill="#000000"
       height="200px"
       width="200px"
       className="w-5 h-5"
@@ -21,6 +20,7 @@ function Navbar() {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 384.97 384.97"
+      fill={darkMode ? "white" : "black"}
       xmlSpace="preserve"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -54,7 +54,7 @@ function Navbar() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 13.594 13.594"
       xmlSpace="preserve"
-      fill="#000000"
+      fill={darkMode ? "white" : "black"}
       className="h-5 w-5"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
