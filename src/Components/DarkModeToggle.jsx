@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../Contexts/ThemeContext.jsx";
 
 function DarkModeToggle() {
-  const { darkMode, setDarkMode, handleDarkModeToggle } =
+  const { darkMode, handleDarkModeToggle } =
     useContext(ThemeContext);
 
   return (
     <div>
-      <div className="flex flex-row justify-between toggle">
+      <div className="flex flex-row justify-between toggle pt-1">
         <label
           htmlFor="dark-toggle"
           className="flex items-center cursor-pointer"
@@ -28,8 +28,8 @@ function DarkModeToggle() {
             ></div>
             <div
               className={`dot absolute left-1 top-1 ${
-                darkMode ? "dark:bg-white" : "bg-gray-800"
-              } w-4 h-4 rounded-full transition`}
+                darkMode ? "dark:bg-white translate-x-4" : "bg-gray-800 "
+              } w-4 h-4 rounded-full transition-all `}
             ></div>
           </div>
           <div
