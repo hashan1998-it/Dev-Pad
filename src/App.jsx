@@ -9,6 +9,7 @@ import { DrawerContext } from "./Contexts/DrawerContext";
 import { StyleMethodContext } from "./Contexts/StyleMethodContext";
 import { FullScreenContext } from "./Contexts/FullScreenContext";
 import useLocalStorage from "./Hooks/useLocalStorage";
+import Favicon from "react-favicon";
 
 function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -16,9 +17,9 @@ function App() {
   const { styleMethod } = useContext(StyleMethodContext);
   const { isFullScreen } = useContext(FullScreenContext);
 
-  let [html, setHtml] =  useLocalStorage("html", "");
-  let [css, setCss] = useLocalStorage("css","");
-  let [js, setJs] = useLocalStorage("js","");
+  let [html, setHtml] = useLocalStorage("html", "");
+  let [css, setCss] = useLocalStorage("css", "");
+  let [js, setJs] = useLocalStorage("js", "");
   let [srcDoc, setSrcDoc] = useState("");
   let content = null;
 
@@ -111,6 +112,7 @@ function App() {
 
   return (
     <div>
+      
       <NoMobileVersion />
       <div
         className={`hidden md:grid grid-cols-8 grid-rows-10 h-screen w-screen overflow-hidden transition-all`}
